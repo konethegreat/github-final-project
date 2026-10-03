@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: ShellCheck and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: ShellCheck (warnings and errors)
+        run: shellcheck --severity=warning simple-interest.sh tests/test-simple-interest.sh
+      - name: Run the tests
+        run: bash tests/test-simple-interest.sh
